@@ -1,0 +1,65 @@
+local a=game.Players.LocalPlayer
+local b=game:GetService("\82\117\110\83\101\114\118\105\99\101")
+local c=game.Workspace.CurrentCamera
+local d=game.Workspace:WaitForChild("\66\97\108\108\115")
+local e=Instance.new("\83\99\114\101\101\110\71\117\105")
+e.Parent=game.CoreGui
+local f=Instance.new("\84\101\120\116\66\117\116\116\111\110")
+f.Parent=e
+f.Size=UDim2.new(0,150,0,50)
+f.Position=UDim2.new(0.5,-75,0.1,0)
+f.Text="\71\111\100\32\77\111\100\101\58\32\79\70\70"
+f.BackgroundColor3=Color3.fromRGB(255,0,0)
+f.TextSize=18
+f.Font=Enum.Font.SourceSansBold
+f.Active=true
+f.Draggable=true
+local g=false
+f.MouseButton1Click:Connect(function()
+g=not g
+f.Text=g and "\84\104\97\110\107\32\121\111\117\32\102\111\114\32\117\115\105\110\103\32\109\121\32\115\99\114\105\112\116\32\58\41" or "\71\111\100\32\77\111\100\101\58\32\79\70\70"
+f.BackgroundColor3=g and Color3.fromRGB(0,255,0) or Color3.fromRGB(255,0,0)
+end)
+local function h()
+local i=nil
+for j,k in ipairs(d:GetChildren()) do
+if k:IsA("\66\97\115\101\80\97\114\116")then
+i=k
+end
+end
+return i
+end
+local function l()
+local m=a.Character or a.CharacterAdded:Wait()
+local n=m:WaitForChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116")
+local o=40
+local p=2000
+local q=0
+local r=150
+b.RenderStepped:Connect(function()
+if g then
+local s=h()
+if s and n then
+local t=(n.Position-s.Position).Magnitude
+if t<25 then
+local u=(n.Position-s.Position).Unit
+local v=s.Position+(u*75)
+n.CFrame=CFrame.new(v,s.Position)
+return
+end
+local w=tick()
+local x=o*math.cos(w*p)
+local y=o*math.sin(w*p)
+local z=s.Position.Y
+local A=Vector3.new(s.Position.X+x,z,s.Position.Z+y)
+n.CFrame=CFrame.new(A,s.Position)
+local B=s.Position+Vector3.new(0,r,q)
+c.CFrame=CFrame.new(B,s.Position)
+end
+end
+end)
+end
+a.CharacterAdded:Connect(function()
+l()
+end)
+l()
