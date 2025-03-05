@@ -1,65 +1,159 @@
-local a=game.Players.LocalPlayer
-local b=game:GetService("\82\117\110\83\101\114\118\105\99\101")
-local c=game.Workspace.CurrentCamera
-local d=game.Workspace:WaitForChild("\66\97\108\108\115")
-local e=Instance.new("\83\99\114\101\101\110\71\117\105")
-e.Parent=game.CoreGui
-local f=Instance.new("\84\101\120\116\66\117\116\116\111\110")
-f.Parent=e
-f.Size=UDim2.new(0,150,0,50)
-f.Position=UDim2.new(0.5,-75,0.1,0)
-f.Text="\71\111\100\32\77\111\100\101\58\32\79\70\70"
-f.BackgroundColor3=Color3.fromRGB(255,0,0)
-f.TextSize=18
-f.Font=Enum.Font.SourceSansBold
-f.Active=true
-f.Draggable=true
-local g=false
-f.MouseButton1Click:Connect(function()
-g=not g
-f.Text=g and "\84\104\97\110\107\32\121\111\117\32\102\111\114\32\117\115\105\110\103\32\109\121\32\115\99\114\105\112\116\32\58\41" or "\71\111\100\32\77\111\100\101\58\32\79\70\70"
-f.BackgroundColor3=g and Color3.fromRGB(0,255,0) or Color3.fromRGB(255,0,0)
+local _0x1 = game.Players.LocalPlayer
+local _0x2 = game:GetService("RunService")
+local _0x3 = game.Workspace.CurrentCamera
+local _0x4 = game.Workspace:WaitForChild("Balls")
+
+local _0x5 = Instance.new("ScreenGui")
+_0x5.ResetOnSpawn = false
+_0x5.Parent = _0x1:WaitForChild("PlayerGui")
+
+local _0x6 = Instance.new("Frame")
+_0x6.Parent = _0x5
+_0x6.Size = UDim2.new(0, 400, 0, 300)
+_0x6.Position = UDim2.new(0.5, -200, 0.1, 0)
+_0x6.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+_0x6.BackgroundTransparency = 0.2
+_0x6.BorderSizePixel = 2
+_0x6.Active = true
+_0x6.Draggable = true
+
+local _0x7 = Instance.new("TextLabel")
+_0x7.Parent = _0x6
+_0x7.Size = UDim2.new(1, 0, 0.1, 0)
+_0x7.Text = "Blade ball script: Made by cats <3"
+_0x7.TextColor3 = Color3.fromRGB(255, 255, 255)
+_0x7.TextSize = 20
+_0x7.Font = Enum.Font.GothamBold
+_0x7.BackgroundTransparency = 1
+_0x7.TextXAlignment = Enum.TextXAlignment.Center
+
+local function _0x8(_0x9, _0xa)
+    local _0xb = Instance.new("TextButton")
+    _0xb.Parent = _0x6
+    _0xb.Size = UDim2.new(0, 150, 0, 40)
+    _0xb.Position = _0xa
+    _0xb.Text = _0x9
+    _0xb.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    _0xb.TextSize = 16
+    _0xb.Font = Enum.Font.GothamBold
+    _0xb.TextColor3 = Color3.fromRGB(255, 255, 255)
+    _0xb.BorderSizePixel = 2
+    return _0xb
+end
+
+local _0xc = _0x8("God Mode: OFF", UDim2.new(0.5, -75, 0.2, 0))
+local _0xd = _0x8("Teleport All: OFF", UDim2.new(0.5, -75, 0.35, 0))
+local _0xe = _0x8("AutoClash: OFF", UDim2.new(0.5, -75, 0.5, 0))
+
+local _0xf = Instance.new("TextBox")
+_0xf.Parent = _0x6
+_0xf.Size = UDim2.new(0, 150, 0, 40)
+_0xf.Position = UDim2.new(0.5, -75, 0.6, 0)
+_0xf.PlaceholderText = "Enter player name"
+_0xf.TextColor3 = Color3.fromRGB(255, 255, 255)
+_0xf.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+_0xf.Font = Enum.Font.GothamBold
+_0xf.TextSize = 16
+
+local _0x10 = false
+local _0x11 = false
+local _0x12 = false
+local _0x13 = ""
+
+_0xc.MouseButton1Click:Connect(function()
+    _0x10 = not _0x10
+    _0xc.Text = _0x10 and "God Mode: ON" or "God Mode: OFF"
+    _0xc.BackgroundColor3 = _0x10 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
 end)
-local function h()
-local i=nil
-for j,k in ipairs(d:GetChildren()) do
-if k:IsA("\66\97\115\101\80\97\114\116")then
-i=k
-end
-end
-return i
-end
-local function l()
-local m=a.Character or a.CharacterAdded:Wait()
-local n=m:WaitForChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116")
-local o=40
-local p=2000
-local q=0
-local r=150
-b.RenderStepped:Connect(function()
-if g then
-local s=h()
-if s and n then
-local t=(n.Position-s.Position).Magnitude
-if t<25 then
-local u=(n.Position-s.Position).Unit
-local v=s.Position+(u*75)
-n.CFrame=CFrame.new(v,s.Position)
-return
-end
-local w=tick()
-local x=o*math.cos(w*p)
-local y=o*math.sin(w*p)
-local z=s.Position.Y
-local A=Vector3.new(s.Position.X+x,z,s.Position.Z+y)
-n.CFrame=CFrame.new(A,s.Position)
-local B=s.Position+Vector3.new(0,r,q)
-c.CFrame=CFrame.new(B,s.Position)
-end
-end
+
+_0xd.MouseButton1Click:Connect(function()
+    _0x11 = not _0x11
+    _0xd.Text = _0x11 and "Teleport All: ON" or "Teleport All: OFF"
+    _0xd.BackgroundColor3 = _0x11 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
 end)
-end
-a.CharacterAdded:Connect(function()
-l()
+
+_0xe.MouseButton1Click:Connect(function()
+    _0x12 = not _0x12
+    _0xe.Text = _0x12 and "AutoClash: ON" or "AutoClash: OFF"
+    _0xe.BackgroundColor3 = _0x12 and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
+    _0x13 = _0xf.Text
 end)
-l()
+
+local function _0x14()
+    local _0x15 = nil
+    for _, _0x16 in ipairs(_0x4:GetChildren()) do
+        if _0x16:IsA("BasePart") then
+            _0x15 = _0x16
+        end
+    end
+    return _0x15
+end
+
+local function _0x17()
+    for _, _0x18 in ipairs(game.Players:GetPlayers()) do
+        if _0x18 ~= _0x1 then
+            local _0x19 = _0x18.Character
+            if _0x19 and _0x19:FindFirstChild("HumanoidRootPart") then
+                _0x1.Character.HumanoidRootPart.CFrame = _0x19.HumanoidRootPart.CFrame
+                wait(0.1)
+            end
+        end
+    end
+end
+
+local function _0x1a()
+    if _0x13 == "" then
+        return
+    end
+    local _0x1b = game.Players:FindFirstChild(_0x13)
+    if _0x1b and _0x1b.Character then
+        local _0x1c = _0x1b.Character:FindFirstChild("HumanoidRootPart")
+        if _0x1c then
+            local _0x1d = (_0x1.Character.HumanoidRootPart.Position - _0x1c.Position).unit
+            local _0x1e = _0x1c.Position + _0x1d * 15
+            _0x1.Character.HumanoidRootPart.CFrame = CFrame.new(_0x1e)
+        end
+    end
+end
+
+local function _0x1f()
+    local _0x20 = _0x1.Character or _0x1.CharacterAdded:Wait()
+    local _0x21 = _0x20:WaitForChild("HumanoidRootPart")
+
+    local _0x22 = 50
+    local _0x23 = 2000
+    local _0x24 = 0
+    local _0x25 = 140
+
+    _0x2.RenderStepped:Connect(function()
+        if _0x10 then
+            local _0x26 = _0x14()
+            if _0x26 and _0x21 then
+                local _0x27 = (_0x21.Position - _0x26.Position).Magnitude
+                if _0x27 < 25 then
+                    local _0x28 = (_0x21.Position - _0x26.Position).Unit
+                    local _0x29 = _0x26.Position + (_0x28 * 75)
+                    _0x21.CFrame = CFrame.new(_0x29, _0x26.Position)
+                    return
+                end
+                local _0x2a = tick()
+                local _0x2b = _0x22 * math.cos(_0x2a * _0x23)
+                local _0x2c = _0x22 * math.sin(_0x2a * _0x23)
+                local _0x2d = _0x26.Position.Y
+                local _0x2e = Vector3.new(_0x26.Position.X + _0x2b, _0x2d, _0x26.Position.Z + _0x2c)
+                _0x21.CFrame = CFrame.new(_0x2e, _0x26.Position)
+                local _0x2f = _0x26.Position + Vector3.new(0, _0x25, _0x24)
+                _0x3.CFrame = CFrame.new(_0x2f, _0x26.Position)
+            end
+        end
+        if _0x11 then
+            _0x17()
+        end
+        if _0x12 then
+            _0x1a()
+        end
+    end)
+end
+
+_0x1.CharacterAdded:Connect(_0x1f)
+_0x1f()
